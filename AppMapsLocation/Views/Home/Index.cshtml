@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa com Marcadores</title>
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEgz8tUYmCoNpmvfqw0fzmMoCptuuRkAw" async defer></script>
+</head>
+<body>
+    <div id="map">
+        <h1>Aqui é a pagina  do mapa</h1>
+    </div>
+
+    <script>
+
+
+      
+
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 10
+            });
+
+            var dados = [
+                {
+                    "Latitude": -3.112289,
+                    "Longitude": -60.013383,
+                    "Endereco": "Endereço 1",
+                    "Status": "A"
+                },
+                {
+                    "Latitude": -3.111075,
+                    "Longitude": -60.01330,
+                    "Endereco": "Endereço 2",
+                    "Status": "A"
+                },
+                {
+                    "Latitude": -23.411075,
+                    "Longitude": -46.8445801,
+                    "Endereco": "Endereço 2",
+                    "Status": "A"
+                }, {
+                    "Latitude": -3.124523,
+                    "Longitude": -60.011740,
+                    "Endereco": "Endereço 2",
+                    "Status": "B"
+                },
+                // Outros pontos
+            ];
+
+
+            dados.forEach(function (item) {
+                var marker = new google.maps.Marker({
+                    position: { lat: item.Latitude, lng: item.Longitude },
+                    map: map,
+                    title: item.Endereco,
+                    icon: definirIcone(item.Status)
+                });
+            });
+        }
+        function definirIcone(status) {
+            // Implemente a lógica para mapear o status para um ícone aqui
+            var icone;
+
+            // Verifique o status e atribua um ícone correspondente
+            switch (status) {
+                case 'A':
+                    icone = https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt1sNfoHqCdPIM0Lu_5Bmq-4tepIsHX5r8rfSrYpUyytxXXC7f0nF5jvYEWWBQOyFB29M&usqp=CAU ; // Substitua pelo caminho do ícone desejado
+                    break;
+                case 'B':
+                    icone = '/icons/icon02.webp'; // Substitua pelo caminho do ícone desejado
+                    break;
+                // Adicione mais casos conforme necessário para outros status
+                default:
+                    icone = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt1sNfoHqCdPIM0Lu_5Bmq-4tepIsHX5r8rfSrYpUyytxXXC7f0nF5jvYEWWBQOyFB29M&usqp=CAU'; // Ícone padrão se nenhum status corresponder
+                    break;
+            }
+         
+            var imagem = new Image();
+            imagem.src = icone;
+            imagem.alt = status; // Defina o status como o atributo "alt" para acessibilidade
+            return imagem;
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEgz8tUYmCoNpmvfqw0fzmMoCptuuRkAw&callback=initMap">
+    </script>
+
+</body>
+</html>
