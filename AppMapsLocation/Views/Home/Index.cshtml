@@ -9,90 +9,133 @@
             height: 500px;
             width: 100%;
         }
+
+        table {
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEgz8tUYmCoNpmvfqw0fzmMoCptuuRkAw" async defer></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEgz8tUYmCoNpmvfqw0fzmMoCptuuRkAw&callback=initMap">
+    </script>
 </head>
 <body>
     <div id="map">
-        <h1>Aqui é a pagina  do mapa</h1>
+        <h1>Aqui é a página do mapa</h1>
     </div>
+    <h2>Endereços</h2>
+    <table>
+        <tr>
+            <th>Nome do Endereço</th>
+            <th>Status</th>
+            <th>Alterar Status</th>
+        </tr>
+    </table>
 
     <script>
+        var dados = [
+            {
+                "Latitude": -3.111075,
+                "Longitude": -60.01330,
+                "Endereco": "Endereço 1",
+                "Status": "A"
+            },
+            {
+                "Latitude": -23.411075,
+                "Longitude": -46.8445801,
+                "Endereco": "Endereço 2",
+                "Status": "A"
+            },
+            {
+                "Latitude": -10.822249014140594,
+                "Longitude": -42.725590777400825,
+                "Endereco": "Endereço 3",
+                "Status": "B"
+            },
+            {
+                "Latitude": -8.042345446600377,
+                "Longitude": -36.751890591635195,
+                "Endereco": "Endereço 4",
+                "Status": "B"
+            }
+        ];
 
-
-      
+        var map;
+        var markers = [];
 
         function initMap() {
-            var map = new google.maps.Map(document.getElementById('map'), {
+            if (map) {
+                // Limpa os marcadores e a tabela se o mapa já foi inicializado
+                markers.forEach(function (marker) {
+                    marker.setMap(null);
+                });
+                markers = [];
+
+                var table = document.querySelector('table');
+                // Remove todas as linhas da tabela, exceto a primeira (cabeçalho)
+                while (table.rows.length > 1) {
+                    table.deleteRow(1);
+                }
+            }
+
+            map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: -34.397, lng: 150.644 },
                 zoom: 10
             });
 
-            var dados = [
-                {
-                    "Latitude": -3.112289,
-                    "Longitude": -60.013383,
-                    "Endereco": "Endereço 1",
-                    "Status": "A"
-                },
-                {
-                    "Latitude": -3.111075,
-                    "Longitude": -60.01330,
-                    "Endereco": "Endereço 2",
-                    "Status": "A"
-                },
-                {
-                    "Latitude": -23.411075,
-                    "Longitude": -46.8445801,
-                    "Endereco": "Endereço 2",
-                    "Status": "A"
-                }, {
-                    "Latitude": -3.124523,
-                    "Longitude": -60.011740,
-                    "Endereco": "Endereço 2",
-                    "Status": "B"
-                },
-                // Outros pontos
-            ];
+            var table = document.querySelector('table');
 
+            var bounds = new google.maps.LatLngBounds();
 
-            dados.forEach(function (item) {
+            dados.forEach(function (item, index) {
+                var markerIcon = {
+                    url: item.Status === 'B' ? '/icones/icon02.webp' : '/icones/icon01.png',
+                    scaledSize: new google.maps.Size(32, 32)
+                };
+
                 var marker = new google.maps.Marker({
                     position: { lat: item.Latitude, lng: item.Longitude },
                     map: map,
                     title: item.Endereco,
-                    icon: definirIcone(item.Status)
+                    icon: markerIcon
                 });
-            });
-        }
-        function definirIcone(status) {
-            // Implemente a lógica para mapear o status para um ícone aqui
-            var icone;
+                markers.push(marker);
 
-            // Verifique o status e atribua um ícone correspondente
-            switch (status) {
-                case 'A':
-                    icone = https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt1sNfoHqCdPIM0Lu_5Bmq-4tepIsHX5r8rfSrYpUyytxXXC7f0nF5jvYEWWBQOyFB29M&usqp=CAU ; // Substitua pelo caminho do ícone desejado
-                    break;
-                case 'B':
-                    icone = '/icons/icon02.webp'; // Substitua pelo caminho do ícone desejado
-                    break;
-                // Adicione mais casos conforme necessário para outros status
-                default:
-                    icone = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt1sNfoHqCdPIM0Lu_5Bmq-4tepIsHX5r8rfSrYpUyytxXXC7f0nF5jvYEWWBQOyFB29M&usqp=CAU'; // Ícone padrão se nenhum status corresponder
-                    break;
-            }
-         
-            var imagem = new Image();
-            imagem.src = icone;
-            imagem.alt = status; // Defina o status como o atributo "alt" para acessibilidade
-            return imagem;
+                bounds.extend(marker.getPosition());
+
+                var row = table.insertRow(index + 1);
+
+                var cell1 = row.insertCell(0);
+                cell1.innerHTML = item.Endereco;
+
+                var cell2 = row.insertCell(1);
+                cell2.innerHTML = item.Status;
+
+                var cell3 = row.insertCell(2);
+                var button = document.createElement('button');
+                button.innerHTML = 'Alterar';
+                button.onclick = function () {
+                    if (item.Status === 'A') {
+                        item.Status = 'B';
+                        marker.setIcon({ url: '/icones/icon02.webp', scaledSize: new google.maps.Size(32, 32) });
+                    } else {
+                        item.Status = 'A';
+                        marker.setIcon({ url: '/icones/icon01.png', scaledSize: new google.maps.Size(32, 32) });
+                    }
+                    cell2.innerHTML = item.Status;
+                };
+                cell3.appendChild(button);
+            });
+            map.fitBounds(bounds);
         }
     </script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEgz8tUYmCoNpmvfqw0fzmMoCptuuRkAw&callback=initMap">
     </script>
-
 </body>
 </html>
