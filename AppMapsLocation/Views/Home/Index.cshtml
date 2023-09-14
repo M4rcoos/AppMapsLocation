@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapa com Marcadores</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <style>
         html, body {
             height: 100%;
@@ -31,7 +34,7 @@
             border-radius: 25px;
             border-image-slice: 1;
             padding: 20px;
-            min-width:500px;
+            min-width:600px;
             height: 800px; /* Defina a altura igual à do mapa */
         }
 
@@ -150,11 +153,11 @@
 
             map = new google.maps.Map(document.getElementById('map'), {
                zoom:18
-               
             });
 
             var table = document.querySelector('table');
 
+            //metodo para ajustar o mapa nos marcadores 
             var bounds = new google.maps.LatLngBounds();
 
             dados.forEach(function (item, index) {
@@ -187,26 +190,26 @@
                 var button = document.createElement('button');
                 button.innerHTML = 'Alterar';
 
-                // Defina a cor de fundo do botão
+                // Define a cor de fundo do botão
                 button.style.background = 'radial-gradient(circle at 89.41% 106.28%, #8fbcff 0, #4680f9 50%, #00489b 100%)';
 
-                // Defina a cor do texto do botão
+                // Define a cor do texto do botão
                 button.style.color = 'white';
 
                 button.style.transition = 'background-color 0.3s ease'; // Efeito de transição suave
                 button.addEventListener('mouseenter', function () {
-                    button.style.background = 'radial-gradient(circle at 89.41% 106.28%, #62e3ff 0, #469ef9 50%, #2a5e98 100%)'; // Defina a cor de fundo ao passar o mouse
+                    button.style.background = 'radial-gradient(circle at 89.41% 106.28%, #62e3ff 0, #469ef9 50%, #2a5e98 100%)'; // Define a cor de fundo ao passar o mouse
                 });
                 button.style.color = 'white';
 
                 // Adicione borda arredondada
-                button.style.borderRadius = '8px'; // Ajuste o valor conforme necessário
+                button.style.borderRadius = '8px';
 
                 // Adicione padding interno
-                button.style.padding = '10px 20px'; // Ajuste os valores conforme necessário
+                button.style.padding = '10px 20px'; 
 
                 // Defina a fonte para Roboto (se você a tiver importada no seu CSS)
-                button.style.fontFamily = 'Roboto, sans-serif'; // Substitua 'Roboto' pelo nome da fonte desejada
+                button.style.fontFamily = 'Roboto, sans-serif'; 
 
                 // Remova a borda do botão
                 button.style.border = 'none';
@@ -219,9 +222,12 @@
                     if (item.Status === 'A') {
                         item.Status = 'B';
                         marker.setIcon({ url: '/icones/icon02.webp', scaledSize: new google.maps.Size(32, 32) });
+                        cell2.innerHTML = item.Status;
+                        cell2.style.color = 'red'
                     } else {
                         item.Status = 'A';
-                        marker.setIcon({ url: '/icones/icon01.png', scaledSize: new google.maps.Size(32, 32) });
+                        marker.setIcon({ url: '/icones/icon01.png', scaledSize: new google.maps.Size(32, 32) }); cell2.innerHTML = item.Status;
+                        cell2.style.color = 'black'
                     }
                     cell2.innerHTML = item.Status;
                 };
