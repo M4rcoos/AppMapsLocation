@@ -1,98 +1,50 @@
-[
+var dados =[
   {
-    "CodControlador": 224,
-    "TxtEquipamento": "000007",
-    "Localizacao": "AV. M�RIO YPIRANGA X RUA.FORTALEZA \/ RUA. TEREZINA",
-    "Data": "21\/05\/2023",
-    "Hora": "19:18:16",
-    "Tempo": 164985,
-    "NumLatitude": "-3.111075",
-    "NumLongitude": "-60.01330",
-    "DomStatus": "A",
-    "Plu": 0
+    "Latitude": -3.111075,
+    "Longitude": -60.01330,
+    "Endereco": "AV. MARIO YPIRANGA X RUA.FORTALEZA \/ RUA. TEREZINA",
+    "Status": "A"
   },
   {
-    "CodControlador": 292,
-    "TxtEquipamento": "000042",
-    "Localizacao": "AV. M�RIO YPIRANGA X RUA TERESINA",
-    "Data": "10\/08\/2023",
-    "Hora": "04:16:21",
-    "Tempo": 49247,
-    "NumLatitude": "-3.112289",
-    "NumLongitude": "-60.013383",
-    "DomStatus": "A",
-    "Plu": 0
+    "Latitude": -3.112289,
+    "Longitude": -60.013383,
+    "Endereco": "AV. MARIO YPIRANGA X RUA TERESINA",
+    "Status": "A"
   },
   {
-    "CodControlador": 299,
-    "TxtEquipamento": "000049",
-    "Localizacao": "TESTE DE PROGRAMA�AO",
-    "Data": "12\/08\/2023",
-    "Hora": "22:18:11",
-    "Tempo": 45285,
-    "NumLatitude": "-3.097147",
-    "NumLongitude": " -60.01520",
-    "DomStatus": "A",
-    "Plu": 0
+    "Latitude": -3.097147,
+    "Longitude": -60.01520,
+    "Endereco": "TESTE DE PROGRAMAÇAO",
+    "Status": "A"
   },
   {
-    "CodControlador": 287,
-    "TxtEquipamento": "000040",
-    "Localizacao": "AV. DUQUE DE CAXIAS X AV. LEONARDO MALCHER X AV. TEF� X TARUM�",
-    "Data": "30\/08\/2023",
-    "Hora": "00:18:03",
-    "Tempo": 20685,
-    "NumLatitude": "-3.124523",
-    "NumLongitude": "-60.011740",
-    "DomStatus": "A",
-    "Plu": 0
+    "Latitude": -3.124523,
+    "Longitude": -60.011740,
+    "Endereco": "AV. DUQUE DE CAXIAS X AV. LEONARDO MALCHER X AV. TEFA X TARUMA",
+    "Status": "A"
   },
   {
-    "CodControlador": 268,
-    "TxtEquipamento": "000014",
-    "Localizacao": "AV. MACEIO X AV. ALVARO MAIA",
-    "Data": "06\/09\/2023",
-    "Hora": "01:46:56",
-    "Tempo": 10517,
-    "NumLatitude": "-3.115808",
-    "NumLongitude": "-60.016733",
-    "DomStatus": "A",
-    "Plu": 0
+    "Latitude": -3.115808,
+    "Longitude": -60.016733,
+    "Endereco": "AV. MACEIO X AV. ALVARO MAIA",
+    "Status": "A"
   },
   {
-    "CodControlador": 286,
-    "TxtEquipamento": "000037",
-    "Localizacao": "R. 10 DE JULHO X R. TAPAJ�S",
-    "Data": "09\/09\/2023",
-    "Hora": "00:51:22",
-    "Tempo": 6252,
-    "NumLatitude": "-3.129925",
-    "NumLongitude": "-60.022788",
-    "DomStatus": "A",
-    "Plu": 0
+    "Latitude": -3.129925,
+    "Longitude": -60.022788,
+    "Endereco": "R. 10 DE JULHO X R. TAPAJÓS",
+    "Status": "A"
   },
   {
-    "CodControlador": 269,
-    "TxtEquipamento": "000031",
-    "Localizacao": "AV. MACEI� X RUA SALVADOR",
-    "Data": "13\/09\/2023",
-    "Hora": "01:13:15",
-    "Tempo": 470,
-    "NumLatitude": "-3.107892",
-    "NumLongitude": "-60.015952",
-    "DomStatus": "A",
-    "Plu": 0
+    "Latitude": -3.107892,
+    "Longitude": -60.015952,
+    "Endereco": "AV. MACEIO X RUA SALVADOR",
+    "Status": "A"
   },
   {
-    "CodControlador": 266,
-    "TxtEquipamento": "000010",
-    "Localizacao": "AV. MACEI� X R. PROF MARCIANO ARMOND ",
-    "Data": "13\/09\/2023",
-    "Hora": "09:02:47",
-    "Tempo": 1,
-    "NumLatitude": "-3.114189",
-    "NumLongitude": "-60.016639",
-    "DomStatus": "A",
-    "Plu": 0
+    "Latitude": -3.114189,
+    "Longitude": -60.016639,
+    "Endereco": "AV. MACEIO X R. PROF MARCIANO ARMOND",
+    "Status": "A"
   }
-]
+];

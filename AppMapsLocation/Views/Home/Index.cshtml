@@ -5,13 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapa com Marcadores</title>
     <style>
-        #map {
-            height: 500px;
+        html, body {
+            height: 100%;
             width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            height: 800px;
+            min-width: 1220px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-content: baseline;
+        }
+
+
+        .table {
+            margin-left:15px;
+            border: 4px solid #4680f9 ;
+            
+            border-radius: 25px;
+            border-image-slice: 1;
+            padding: 20px;
+            min-width:500px;
+            height: 800px; /* Defina a altura igual à do mapa */
         }
 
         table {
             width: 100%;
+            border-collapse: collapse;
         }
 
         th, td {
@@ -19,63 +45,102 @@
             text-align: left;
         }
     </style>
+    <script src="../Static/dados.json"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEgz8tUYmCoNpmvfqw0fzmMoCptuuRkAw&callback=initMap">
     </script>
 </head>
 <body>
-    <div id="map">
-        <h1>Aqui é a página do mapa</h1>
-    </div>
-    <h2>Endereços</h2>
-    <table>
-        <tr>
-            <th>Nome do Endereço</th>
-            <th>Status</th>
-            <th>Alterar Status</th>
-        </tr>
-    </table>
+    <h1 style="text-align:center; margin: 60px 0;">Localização de pontos</h1>
 
+    <div class="container">
+        <div id="map"></div>
+
+        <div class="table">
+            <h2 style="text-align:center">Endereços</h2>
+            <table>
+                <tr>
+                    <th>Nome do Endereço</th>
+                    <th>Status</th>
+                    <th>Alterar Status</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    
+    
     <script>
+        //aqui estou criando um array de objetos que contem as informações necessaria para ultilizar no Mapa
         var dados = [
-            {
-                "Latitude": -3.111075,
-                "Longitude": -60.01330,
-                "Endereco": "Endereço 1",
-                "Status": "A"
-            },
-            {
-                "Latitude": -23.411075,
-                "Longitude": -46.8445801,
-                "Endereco": "Endereço 2",
-                "Status": "A"
-            },
-            {
-                "Latitude": -10.822249014140594,
-                "Longitude": -42.725590777400825,
-                "Endereco": "Endereço 3",
-                "Status": "B"
-            },
-            {
-                "Latitude": -8.042345446600377,
-                "Longitude": -36.751890591635195,
-                "Endereco": "Endereço 4",
-                "Status": "B"
-            }
+              {
+            "Latitude": -3.111075,
+            "Longitude": -60.01330,
+            "Endereco": "AV. MARIO YPIRANGA X RUA.FORTALEZA \/ RUA. TEREZINA",
+            "Status": "A"
+        },
+        {
+            "Latitude": -3.112289,
+            "Longitude": -60.013383,
+            "Endereco": "AV. MARIO YPIRANGA X RUA TERESINA",
+            "Status": "A"
+        },
+        {
+            "Latitude": -3.097147,
+            "Longitude": -60.01520,
+            "Endereco": "TESTE DE PROGRAMAÇAO",
+            "Status": "A"
+        },
+        {
+            "Latitude": -3.124523,
+            "Longitude": -60.011740,
+            "Endereco": "AV. DUQUE DE CAXIAS X AV. LEONARDO MALCHER X AV. TEFA X TARUMA",
+            "Status": "A"
+        },
+        {
+            "Latitude": -3.115808,
+            "Longitude": -60.016733,
+            "Endereco": "AV. MACEIO X AV. ALVARO MAIA",
+            "Status": "A"
+        },
+        {
+            "Latitude": -3.129925,
+            "Longitude": -60.022788,
+            "Endereco": "R. 10 DE JULHO X R. TAPAJÓS",
+            "Status": "A"
+        },
+        {
+            "Latitude": -3.107892,
+            "Longitude": -60.015952,
+            "Endereco": "AV. MACEIO X RUA SALVADOR",
+            "Status": "A"
+        },
+        {
+            "Latitude": -3.114189,
+            "Longitude": -60.016639,
+            "Endereco": "AV. MACEIO X R. PROF MARCIANO ARMOND",
+            "Status": "A"
+        }
         ];
 
+        
         var map;
+
+        //array que ira guardar todos os pontos do mapa 
         var markers = [];
 
         function initMap() {
+
+            //verifico se a variavel map possui algum valor 
             if (map) {
-                // Limpa os marcadores e a tabela se o mapa já foi inicializado
+                // percorre o array e limpa os marcadores e a tabela se o mapa já foi inicializado
                 markers.forEach(function (marker) {
                     marker.setMap(null);
                 });
                 markers = [];
 
+                //seleciono a tabela
                 var table = document.querySelector('table');
                 // Remove todas as linhas da tabela, exceto a primeira (cabeçalho)
                 while (table.rows.length > 1) {
@@ -84,8 +149,8 @@
             }
 
             map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: -34.397, lng: 150.644 },
-                zoom: 10
+               zoom:18
+               
             });
 
             var table = document.querySelector('table');
@@ -117,9 +182,40 @@
                 cell2.innerHTML = item.Status;
 
                 var cell3 = row.insertCell(2);
+
+                //criando o botão de alterar status e mudando a cor dele 
                 var button = document.createElement('button');
                 button.innerHTML = 'Alterar';
-                button.onclick = function () {
+
+                // Defina a cor de fundo do botão
+                button.style.background = 'radial-gradient(circle at 89.41% 106.28%, #8fbcff 0, #4680f9 50%, #00489b 100%)';
+
+                // Defina a cor do texto do botão
+                button.style.color = 'white';
+
+                button.style.transition = 'background-color 0.3s ease'; // Efeito de transição suave
+                button.addEventListener('mouseenter', function () {
+                    button.style.background = 'radial-gradient(circle at 89.41% 106.28%, #62e3ff 0, #469ef9 50%, #2a5e98 100%)'; // Defina a cor de fundo ao passar o mouse
+                });
+                button.style.color = 'white';
+
+                // Adicione borda arredondada
+                button.style.borderRadius = '8px'; // Ajuste o valor conforme necessário
+
+                // Adicione padding interno
+                button.style.padding = '10px 20px'; // Ajuste os valores conforme necessário
+
+                // Defina a fonte para Roboto (se você a tiver importada no seu CSS)
+                button.style.fontFamily = 'Roboto, sans-serif'; // Substitua 'Roboto' pelo nome da fonte desejada
+
+                // Remova a borda do botão
+                button.style.border = 'none';
+
+                button.addEventListener('mouseleave', function () {
+                    button.style.background = 'radial-gradient(circle at 89.41% 106.28%, #8fbcff 0, #4680f9 50%, #00489b 100%)'; // Restaure a cor de fundo padrão ao retirar o mouse
+                });
+                                    
+                button.onclick = function () { 
                     if (item.Status === 'A') {
                         item.Status = 'B';
                         marker.setIcon({ url: '/icones/icon02.webp', scaledSize: new google.maps.Size(32, 32) });
