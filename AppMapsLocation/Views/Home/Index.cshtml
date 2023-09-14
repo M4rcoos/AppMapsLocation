@@ -29,13 +29,15 @@
 
         .table {
             margin-left:15px;
-            border: 4px solid #4680f9 ;
+            border: 5px solid #4680f9 ;
             
             border-radius: 25px;
             border-image-slice: 1;
             padding: 20px;
             min-width:600px;
             height: 800px; /* Defina a altura igual à do mapa */
+            overflow-y: auto;
+            scrollbar-width: none;
         }
 
         table {
@@ -66,6 +68,7 @@
                 <tr>
                     <th>Nome do Endereço</th>
                     <th>Status</th>
+                    <th>Equiamentos</th>
                     <th>Alterar Status</th>
                 </tr>
             </table>
@@ -77,54 +80,49 @@
     <script>
         //aqui estou criando um array de objetos que contem as informações necessaria para ultilizar no Mapa
         var dados = [
-              {
-            "Latitude": -3.111075,
-            "Longitude": -60.01330,
-            "Endereco": "AV. MARIO YPIRANGA X RUA.FORTALEZA \/ RUA. TEREZINA",
-            "Status": "A"
-        },
-        {
-            "Latitude": -3.112289,
-            "Longitude": -60.013383,
-            "Endereco": "AV. MARIO YPIRANGA X RUA TERESINA",
-            "Status": "A"
-        },
-        {
-            "Latitude": -3.097147,
-            "Longitude": -60.01520,
-            "Endereco": "TESTE DE PROGRAMAÇAO",
-            "Status": "A"
-        },
-        {
-            "Latitude": -3.124523,
-            "Longitude": -60.011740,
-            "Endereco": "AV. DUQUE DE CAXIAS X AV. LEONARDO MALCHER X AV. TEFA X TARUMA",
-            "Status": "A"
-        },
-        {
-            "Latitude": -3.115808,
-            "Longitude": -60.016733,
-            "Endereco": "AV. MACEIO X AV. ALVARO MAIA",
-            "Status": "A"
-        },
-        {
-            "Latitude": -3.129925,
-            "Longitude": -60.022788,
-            "Endereco": "R. 10 DE JULHO X R. TAPAJÓS",
-            "Status": "A"
-        },
-        {
-            "Latitude": -3.107892,
-            "Longitude": -60.015952,
-            "Endereco": "AV. MACEIO X RUA SALVADOR",
-            "Status": "A"
-        },
-        {
-            "Latitude": -3.114189,
-            "Longitude": -60.016639,
-            "Endereco": "AV. MACEIO X R. PROF MARCIANO ARMOND",
-            "Status": "A"
-        }
+            {
+                "TxtEquipamento": "000007",
+                "Latitude": -3.111075,
+                "Longitude": -60.01330,
+                "Endereco": "AV. MARIO YPIRANGA X RUA.FORTALEZA \/ RUA. TEREZINA",
+                "Status": "A"
+            },
+            {
+                "TxtEquipamento": "000042",
+                "Latitude": -3.112289,
+                "Longitude": -60.013383,
+                "Endereco": "AV. MARIO YPIRANGA X RUA TERESINA",
+                "Status": "A"
+            },
+            {
+                "TxtEquipamento": "000049",
+                "Latitude": -3.097147,
+                "Longitude": -60.01520,
+                "Endereco": "TESTE DE PROGRAMAÇAO",
+                "Status": "A"
+            },
+            {
+                "TxtEquipamento": "000040",
+                "Latitude": -3.124523,
+                "Longitude": -60.011740,
+                "Endereco": "AV. DUQUE DE CAXIAS X AV. LEONARDO MALCHER X AV. TEFA X TARUMA",
+                "Status": "A"
+            },
+            {
+                "TxtEquipamento": "0000014",
+                "Latitude": -3.115808,
+                "Longitude": -60.016733,
+                "Endereco": "AV. MACEIO X AV. ALVARO MAIA",
+                "Status": "A"
+            },
+            {
+                "TxtEquipamento": "000037",
+                "Latitude": -3.129925,
+                "Longitude": -60.022788,
+                "Endereco": "R. 10 DE JULHO X R. TAPAJÓS",
+                "Status": "A"
+            },
+          
         ];
 
         
@@ -185,6 +183,9 @@
                 cell2.innerHTML = item.Status;
 
                 var cell3 = row.insertCell(2);
+                cell3.innerHTML = item.TxtEquipamento
+
+                var cell4 = row.insertCell(3);
 
                 //criando o botão de alterar status e mudando a cor dele 
                 var button = document.createElement('button');
@@ -231,7 +232,7 @@
                     }
                     cell2.innerHTML = item.Status;
                 };
-                cell3.appendChild(button);
+                cell4.appendChild(button);
             });
             map.fitBounds(bounds);
         }
